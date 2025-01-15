@@ -1,0 +1,20 @@
+backend:
+  name: git-gateway
+  branch: main # Change to your default branch if not main
+
+media_folder: "static/img"
+public_folder: "/img"
+
+collections:
+  - name: "pages"
+    label: "Pages"
+    files:
+      - label: "Order Form"
+        name: "order_form"
+        file: "index.html"
+        fields:
+          - { label: "Full Name", name: "full-name", widget: "string" }
+          - { label: "Email Address", name: "email-address", widget: "string" }
+          - { label: "Order Type", name: "order-type", widget: "string" }
+          - { label: "Address", name: "address", widget: "text" }
+          - { label: "Payment Details", name: "payment-details", widget: "text" }
