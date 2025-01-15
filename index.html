@@ -11,31 +11,54 @@
       background-color: #f4f4f4;
       margin: 0;
       padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
       position: relative;
     }
 
-    .watermark {
+    .background-iframe {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('https://via.placeholder.com/1500x1000?text=coreysii.com') repeat;
-      opacity: 0.1;
       z-index: -1;
+      border: none;
+      opacity: 0.1;
       pointer-events: none;
     }
 
-    .fs-form {
+    .content-wrapper {
       max-width: 600px;
+      width: 90%;
       margin: 50px auto;
       padding: 20px;
       background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
     }
 
-    .fs-form h1 {
+    .business-details {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .business-details h1 {
+      margin-bottom: 10px;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .business-details p {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .fs-form h2 {
       text-align: center;
       color: #333;
       margin-bottom: 20px;
@@ -56,12 +79,13 @@
     .fs-select,
     .fs-textarea {
       width: 100%;
-      padding: 12px;
+      padding: 15px;
       border: 1px solid #ccc;
-      border-radius: 4px;
+      border-radius: 8px;
       font-size: 16px;
       color: #333;
       transition: border-color 0.3s;
+      box-sizing: border-box;
     }
 
     .fs-input:focus,
@@ -77,18 +101,23 @@
     }
 
     .fs-button {
-      padding: 12px 24px;
+      padding: 15px 30px;
       background-color: #007bff;
       color: #fff;
       border: none;
-      border-radius: 4px;
+      border-radius: 8px;
       font-size: 16px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .fs-button:hover {
       background-color: #0056b3;
+    }
+
+    .fs-button:active {
+      transform: scale(0.98);
     }
 
     .footer-content {
@@ -96,6 +125,9 @@
       padding: 20px;
       background-color: #333;
       color: white;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
     }
 
     .footer-content a {
@@ -107,78 +139,129 @@
     .footer-content a:hover {
       color: #0056b3;
     }
+
+    @media (max-width: 600px) {
+      .content-wrapper {
+        padding: 15px;
+      }
+
+      .fs-input,
+      .fs-select,
+      .fs-textarea {
+        padding: 12px;
+      }
+
+      .fs-button {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="watermark"></div>
-  <form
-    id="seafood-order-form"
-    name="seafood-order"
-    method="POST"
-    data-netlify="true"
-    class="fs-form"
-  >
-    <input type="hidden" name="form-name" value="seafood-order" />
-    <h1>Seafood Order Form</h1>
-    <fieldset>
-      <div class="fs-field">
-        <label class="fs-label" for="full-name">Full Name</label>
-        <input
-          class="fs-input"
-          type="text"
-          id="full-name"
-          name="full-name"
-          placeholder="Enter your full name"
-          required
-        />
-      </div>
-      <div class="fs-field">
-        <label class="fs-label" for="email-address">Email Address</label>
-        <input
-          class="fs-input"
-          type="email"
-          id="email-address"
-          name="email-address"
-          placeholder="Enter your email address"
-          required
-        />
-      </div>
-      <div class="fs-field">
-        <label class="fs-label" for="order-type">Order Type</label>
-        <select class="fs-select" id="order-type" name="order-type" required>
-          <option value="">Select order type</option>
-          <option value="pick up">Pick Up</option>
-          <option value="delivery">Delivery</option>
-        </select>
-      </div>
-      <div class="fs-field" id="address-field">
-        <label class="fs-label" for="address">Address</label>
-        <textarea
-          class="fs-textarea"
-          id="address"
-          name="address"
-          placeholder="Enter your address for delivery"
-          required
-        ></textarea>
-      </div>
-      <div class="fs-field">
-        <label class="fs-label" for="payment-details">Payment Details</label>
-        <textarea
-          class="fs-textarea"
-          id="payment-details"
-          name="payment-details"
-          placeholder="Enter details on what you are about to pay for"
-          required
-        ></textarea>
-      </div>
-    </fieldset>
-
-    <div class="fs-button-group">
-      <button class="fs-button" type="submit">Submit</button>
+  <iframe src="https://coreysii.com" class="background-iframe"></iframe>
+  <div class="content-wrapper">
+    <div class="business-details">
+      <h1>Coreys II</h1>
+      <p>218 E Goodnight Ave</p>
+      <p>Aransas Pass, Texas 78336</p>
     </div>
-  </form>
+    <form
+      id="seafood-order-form"
+      name="seafood-order"
+      method="POST"
+      data-netlify="true"
+      class="fs-form"
+      onsubmit="return validateForm()"
+    >
+      <input type="hidden" name="form-name" value="seafood-order" />
+      <h2>Seafood Order Form</h2>
+      <fieldset>
+        <div class="fs-field">
+          <label class="fs-label" for="full-name">Full Name</label>
+          <input
+            class="fs-input"
+            type="text"
+            id="full-name"
+            name="full-name"
+            placeholder="Enter your full name"
+            required
+          />
+        </div>
+        <div class="fs-field">
+          <label class="fs-label" for="email-address">Email Address</label>
+          <input
+            class="fs-input"
+            type="email"
+            id="email-address"
+            name="email-address"
+            placeholder="Enter your email address"
+            required
+          />
+        </div>
+        <div class="fs-field">
+          <label class="fs-label" for="order-type">Order Type</label>
+          <select class="fs-select" id="order-type" name="order-type" required>
+            <option value="">Select order type</option>
+            <option value="pick up">Pick Up</option>
+            <option value="delivery">Delivery</option>
+          </select>
+        </div>
+        <div class="fs-field" id="address-field">
+          <label class="fs-label" for="address">Address</label>
+          <textarea
+            class="fs-textarea"
+            id="address"
+            name="address"
+            placeholder="Enter your address for delivery"
+            required
+          ></textarea>
+        </div>
+        <div class="fs-field">
+          <label class="fs-label" for="payment-details">Payment Details</label>
+          <textarea
+            class="fs-textarea"
+            id="payment-details"
+            name="payment-details"
+            placeholder="Enter details on what you are about to pay for"
+            required
+          ></textarea>
+        </div>
+      </fieldset>
+
+      <div class="fs-button-group">
+        <button class="fs-button" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
 
   <script>
+    function validateForm() {
+      const fullName = document.getElementById('full-name').value.trim();
+      const emailAddress = document.getElementById('email-address').value.trim();
+      const orderType = document.getElementById('order-type').value;
+      const address = document.getElementById('address').value.trim();
+      const paymentDetails = document.getElementById('payment-details').value.trim();
+
+      if (!fullName || !emailAddress || !orderType || !paymentDetails) {
+        alert('Please fill out all required fields.');
+        return false;
+      }
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(emailAddress)) {
+        alert('Please enter a valid email address.');
+        return false;
+      }
+
+      if (orderType === 'delivery' && !address) {
+        alert('Please enter your address for delivery.');
+        return false;
+      }
+
+      return true;
+    }
+
     document.getElementById('order-type').addEventListener('change', function(event) {
       const addressField = document.getElementById('address-field');
       if (event.target.value === 'pick up') {
@@ -193,6 +276,10 @@
     document.getElementById('seafood-order-form').addEventListener('submit', function(event) {
       event.preventDefault(); // Prevent the default form submission
 
+      if (!validateForm()) {
+        return;
+      }
+
       const form = event.target;
       const formData = new FormData(form);
       const formText = new URLSearchParams(formData).toString().toLowerCase();
@@ -200,7 +287,7 @@
       if (formText.includes('pick up')) {
         window.location.href = 'https://www.paymentshub.com/payment-link?token=NDY5ZTViOTQ0NmExOWMxZDEzMzdmZWFmMjU4ZDVjYTg6OTJjYzQ2NWZkNDU3Yzk0NzMyMjE0YTU2YzY5ZDdiZTdhMzVmYjExZDhlZWZlYjY2ZTVkMGJlNDNmZWFkZGVkZjgwMDYyZDA2YTI0YzNiMGYxZmRhZjczMjBjMDViMDlkZDBiYmRhNmQzZDRkMGQ2ZjdhZDc0M2JhM2I0ODY2MTI0OWRiYjZlMjU3OGZjZDE3OWNmNjYzYzMzYzY2ZjhhMTdiMjk1ODhlMmUwMWM0OGY3NzYxNDQ1NWZhMjYxNWY2OTRkYWQ0YmYxNmU0MWRmNmMxY2Q5NDc4ZjFjMjQwNjBkMjlkMmNiNDA3NGZmZDNjMmFmNDczZGM5NjEwYzg4M2FhMGYzNTBlZDMxMWFhMWIyOTAxOTlkODliOTY2OTNmMTAzYTc4YWZmODUxN2NmYjIzYjIzNWVhNDU4MmI4NzFmNWVlMmY4MGM2MDJiODEwZWU5OGM0YzczYmE2YmRjYmJjMDk0ZTk1MWExOWMwMmMzOTc4NmRmOWY5NDU5Y2Y3';
       } else if (formText.includes('delivery')) {
-        window.location.href = 'https://www.paymentshub.com/payment-link?token=YWEzMDY4YmYyZTE1M2YzMGExOWVjZjQyYTI1YmU0Njk6ZDA5MDkzZDNjN2ZjM2FkZWI4NmJhMWFiYTM4MGZjZmNkNTQyNDJlOWFjYmZlYjFmZTRlNDBjMmY5YjRhZmZkYzkxNTk1MjZkYjIzM2VkOTVkMmMxNzMwZmFjYTgwNThkNmMzODM0Y2YzZDRiYWQ0MTlhOGZlNDAyNTY1OTQ1MGZlNWU2NTY2NzRlNWU0MjYzY2Y1M2RmMzZhODJiNjI1M2QxYmJmZDUyYjU3MTM0YThiZjk2MGQwMGM0YmRkOTE3NzkyODIyMzU1NTE3MzNlODA2NmQzODRkNWE5ZjVjOWU0ZjRlMzg2YjMxMDUzOGNmNTk0OWYwMTg4ZDA4YmM1MzA4MTViOTRkNjEzOGY3NjAwMzJhYmJiZTU1NTgwNWY3NWE0ZDYwYTI1NGI1YzU2OTYyNjg5Y2E5OTY2N2EzYzk5NDBjYTVmNzNhOTdhOTUxZWU4NzBkMmVjMjAwYzhiMzk5NmNiZWZjNzdmZThmNWEyZjI5ZWUzMWFkZmI5ZTNi';
+        window.location.href = 'https://www.paymentshub.com/payment-link?token=YWEzMDY4YmYyZTE1M2YzMGExOWVjZjQyYTI1YmU0Njk6ZDA5MDkzZDNjN2ZjM2FkZWI4NmJhMWFiYTM4MGZjZmNkNTQyNDJlOWFjYmZlYjFmZTRlNDBjMmY5YjRhZmZkYzkxNTk1MjZkYjIzM2VkOTVkMmMxNzMwZmFjYTgwNThkNmMzODM0Y2YzZDRiYWQ0MTlhOGZlNDAyNTY1OTQ1MGZlNWU2NTY2NzRlNWU0MjYzY2Y1M2RmMzZhODJiNjI1M2QxYmJmZDUyYjU3MTM0YThiZjk2MGQwMGM0YmRkOTE3NzkyODIyMzU1NTE3MzNlODA2NmQzODRkNWE5ZjVjOWU0ZjRlMzg2YjMxMDUzOGNmNTk0OWYwMTg4ZDA4YmM1MzA4MTViOTRkNjEzOGY3NjAwMzJhYmJiZTU1NTgwNWY3NWE0ZDYwYTI1NGI1YzU2OTYyNjg5Y2E5OTY2N2EzYzk5NDBjYTVmNzNhOTdhOTUxZWU4NzBkMmVjMjAwYzhiMzk5NmNiZWZjNzdmZThmZThmNWEyZjI5ZWUzMWFkZmI5ZTNi';
       } else {
         form.submit(); // Submit the form normally if no keywords are found
       }
